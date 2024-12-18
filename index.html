@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>眼镜框测量</title>
+    <title>眼鏡框參數量測</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei", sans-serif;
             margin: 0;
             padding: 20px;
             background: #f5f5f5;
@@ -100,15 +101,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>眼镜框参数测量</h1>
+        <h1>眼鏡框參數量測</h1>
         
         <div class="instructions">
-            <strong>使用说明：</strong><br>
-            1. 点击对应的测量按钮<br>
-            2. 允许使用相机权限<br>
-            3. 将手机对准要测量的位置<br>
-            4. 按照屏幕提示完成测量<br>
-            5. 所有参数测量完成后点击保存
+            <strong>使用說明：</strong><br>
+            1. 點擊對應的量測按鈕<br>
+            2. 允許使用相機權限<br>
+            3. 將手機對準要量測的位置<br>
+            4. 依照螢幕提示完成量測<br>
+            5. 所有參數量測完成後點擊儲存
         </div>
         
         <div id="arView"></div>
@@ -116,42 +117,42 @@
         <div class="measurements">
             <div class="measurement">
                 <button class="measure-button" onclick="startMeasurement('A')">
-                    A - 测量镜片宽度
+                    A - 量測鏡片寬度
                 </button>
                 <div id="result-A" class="result"></div>
             </div>
             
             <div class="measurement">
                 <button class="measure-button" onclick="startMeasurement('B')">
-                    B - 测量鼻桥宽度
+                    B - 量測鼻橋寬度
                 </button>
                 <div id="result-B" class="result"></div>
             </div>
             
             <div class="measurement">
                 <button class="measure-button" onclick="startMeasurement('C')">
-                    C - 测量镜脚长度
+                    C - 量測鏡腳長度
                 </button>
                 <div id="result-C" class="result"></div>
             </div>
             
             <div class="measurement">
                 <button class="measure-button" onclick="startMeasurement('D')">
-                    D - 测量镜框总宽度
+                    D - 量測鏡框總寬度
                 </button>
                 <div id="result-D" class="result"></div>
             </div>
             
             <div class="measurement">
                 <button class="measure-button" onclick="startMeasurement('E')">
-                    E - 测量镜片高度
+                    E - 量測鏡片高度
                 </button>
                 <div id="result-E" class="result"></div>
             </div>
         </div>
 
         <button class="save-button" onclick="saveMeasurements()">
-            保存所有测量结果
+            儲存所有量測結果
         </button>
     </div>
 
@@ -160,19 +161,19 @@
         let currentSession = null;
         let currentMeasurement = null;
         
-        // 检查设备支持
+        // 檢查裝置支援
         async function checkDeviceSupport() {
             if (!window.isSecureContext) {
-                throw new Error('需要HTTPS环境');
+                throw new Error('需要HTTPS環境');
             }
             
             if (!navigator.xr) {
-                throw new Error('您的浏览器不支持WebXR');
+                throw new Error('您的瀏覽器不支援WebXR');
             }
             
             const supported = await navigator.xr.isSessionSupported('immersive-ar');
             if (!supported) {
-                throw new Error('您的设备不支持AR测量');
+                throw new Error('您的裝置不支援AR量測');
             }
         }
 
@@ -184,7 +185,7 @@
                 const arView = document.getElementById('arView');
                 arView.style.display = 'block';
                 
-                // 启动AR会话
+                // 啟動AR會話
                 const session = await navigator.xr.requestSession('immersive-ar', {
                     requiredFeatures: ['hit-test', 'dom-overlay'],
                     domOverlay: { root: arView }
@@ -192,18 +193,18 @@
                 
                 currentSession = session;
                 
-                // 设置AR视图
+                // 設定AR視圖
                 const gl = arView.getContext('webgl', { xrCompatible: true });
                 const xrGLLayer = new XRWebGLLayer(session, gl);
                 session.updateRenderState({ baseLayer: xrGLLayer });
                 
-                // 开始AR会话循环
+                // 開始AR會話循環
                 session.requestAnimationFrame(onXRFrame);
                 
             } catch (error) {
                 console.error(error);
-                // 如果AR不可用，回退到手动输入
-                const value = prompt(`请输入${param}的测量值(厘米):`);
+                // 如果AR不可用，回退到手動輸入
+                const value = prompt(`請輸入${param}的量測值(公分):`);
                 if (value) {
                     const numValue = parseFloat(value);
                     if (!isNaN(numValue)) {
@@ -218,15 +219,15 @@
             const session = frame.session;
             if (!session) return;
             
-            // 获取位置跟踪
+            // 取得位置追蹤
             const pose = frame.getViewerPose(referenceSpace);
             if (!pose) return;
             
-            // 处理hit-test结果
+            // 處理hit-test結果
             const hitTestResults = frame.getHitTestResults(hitTestSource);
             if (hitTestResults.length > 0) {
                 const hitPose = hitTestResults[0].getPose(referenceSpace);
-                // 使用hitPose进行测量计算
+                // 使用hitPose進行量測計算
                 // ...
             }
             
@@ -235,7 +236,7 @@
         
         function updateResult(param, value) {
             const resultDiv = document.getElementById(`result-${param}`);
-            resultDiv.textContent = `${param}: ${value.toFixed(1)} 厘米`;
+            resultDiv.textContent = `${param}: ${value.toFixed(1)} 公分`;
         }
         
         function saveMeasurements() {
@@ -244,12 +245,12 @@
                 measurements: measurements
             };
             
-            // 保存到localStorage
+            // 儲存到localStorage
             let history = JSON.parse(localStorage.getItem('measurementHistory') || '[]');
             history.push(measurementData);
             localStorage.setItem('measurementHistory', JSON.stringify(history));
             
-            // 创建下载文件
+            // 建立下載檔案
             const blob = new Blob([JSON.stringify(measurementData, null, 2)], 
                                 { type: 'application/json' });
             const url = URL.createObjectURL(blob);
@@ -261,14 +262,14 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            alert('测量结果已保存');
+            alert('量測結果已儲存');
         }
         
         // 初始化
         window.startMeasurement = startMeasurement;
         window.saveMeasurements = saveMeasurements;
         
-        // 检查设备支持
+        // 檢查裝置支援
         checkDeviceSupport().catch(error => {
             const container = document.querySelector('.container');
             const errorDiv = document.createElement('div');
