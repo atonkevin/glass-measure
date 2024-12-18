@@ -1,7 +1,5 @@
 pages:
   stage: deploy
-  tags:
-    - shell
   script:
     - mkdir -p public
     - cp index.html public/
