@@ -1,0 +1,66 @@
+# 開發環境 - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# 開發環境 - JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# macOS 系統檔案
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Node.js 相關（如果之後要加入 Node.js 功能）
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Python 相關（用於本地開發伺服器）
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+.env
+.venv
+ENV/
+
+# 本地測試檔案
+*.log
+*.local
+.env.local
+.env.*.local
+
+# 暫存檔案
+*.tmp
+*.temp
+temp/
+.temp/
+
+# 建置輸出
+dist/
+build/
+public/
+.public/
+
+# 其他
+*.bak
+*.swp
+*.swo
+Thumbs.db 
