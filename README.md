@@ -9,7 +9,7 @@
 - 可儲存及匯出量測結果
 
 ## 使用方式
-1. 存取: https://atonkevin.gitlab.atonkevin.tk/glass-measure
+1. 存取: https://gitlab.atonkevin.tk/glass-measure
 2. 使用iPhone的Safari瀏覽器開啟
 3. 依照畫面提示進行量測
 
